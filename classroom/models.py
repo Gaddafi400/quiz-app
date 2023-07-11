@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils.html import escape, mark_safe
+from django.utils.html import escape, mark_safe, format_html
 
 
 class User(AbstractUser):
@@ -18,7 +18,8 @@ class Subject(models.Model):
     def get_html_badge(self):
         name = escape(self.name)
         color = escape(self.color)
-        html = '<span class="badge badge-primary" style="background-color: %s">%s</span>' % (color, name)
+        html = format_html('<span class="badge badge-primary" style="background-color: {}">{}</span>',
+                           color, name)
         return mark_safe(html)
 
 
