@@ -71,11 +71,11 @@ class QuizUpdateView(UpdateView):
         return super().get_context_data(**kwargs)
 
     def get_queryset(self):
-        '''
+        """
         This method is an implicit object-level permission management
         This view will only match the ids of existing quizzes that belongs
-        to the logged in user.
-        '''
+        to the logged-in user.
+        """
         return self.request.user.quizzes.all()
 
     def get_success_url(self):
@@ -125,9 +125,9 @@ class QuizResultsView(DetailView):
 @teacher_required
 def question_add(request, pk):
     # By filtering the quiz by the url keyword argument `pk` and
-    # by the owner, which is the logged in user, we are protecting
+    # by the owner, which is the logged-in user, we are protecting
     # this view at the object-level. Meaning only the owner of
-    # quiz will be able to add questions to it.
+    # the quiz will be able to add questions to it.
     quiz = get_object_or_404(Quiz, pk=pk, owner=request.user)
 
     if request.method == 'POST':
@@ -147,7 +147,7 @@ def question_add(request, pk):
 @login_required
 @teacher_required
 def question_change(request, quiz_pk, question_pk):
-    # Simlar to the `question_add` view, this view is also managing
+    # Similar to the `question_add` view, this view is also managing
     # the permissions at object-level. By querying both `quiz` and
     # `question` we are making sure only the owner of the quiz can
     # change its details and also only questions that belongs to this
